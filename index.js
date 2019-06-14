@@ -1,27 +1,18 @@
-const visit = require("unist-util-visit")
+const visit = require("unist-util-visit-parents")
 const toString = require("mdast-util-to-string")
 
 module.exports = ({ markdownAST }, pluginOptions) => {
   // Manipulate AST
-  visit(markdownAST, "heading", node => {
+  visit(markdownAST, "heading", (node, ancestors) => {
     // console.log(node)
     let { depth } = node
     // console.log({ depth }, "syvyys")
-
-    let text = toString(node)
-
-    const html = `
-        <h${depth} class="title is-${depth}">
-          ${text}
-        </h${depth}>
-      `
-
-    node.type = "html"
-    node.children = undefined
-    node.value = html
+    node.data = {
+      hProperties: { class: `title is-${depth}` },
+    }
   })
 
-  visit(markdownAST, "blockquote", node => {
+  visit(markdownAST, "blockquote", (node, ancestors) => {
     // console.log(node)
     let text = toString(node)
     // console.log({ text })
@@ -38,6 +29,14 @@ module.exports = ({ markdownAST }, pluginOptions) => {
     node.type = "html"
     node.children = undefined
     node.value = html
+  })
+
+  visit(markdownAST, "paragraph", (node, ancestors) => {
+    if (ancestors[ancestors.length - 1].type === "root") {
+      node.data = {
+        hProperties: { class: "content" },
+      }
+    }
   })
 
   return markdownAST
