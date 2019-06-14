@@ -13,22 +13,17 @@ module.exports = ({ markdownAST }, pluginOptions) => {
   })
 
   visit(markdownAST, "blockquote", (node, ancestors) => {
-    // console.log(node)
-    let text = toString(node)
-    // console.log({ text })
-
-    // '<div class="content"><blockquote>$1</blockquote></div>',
-    const html = `
-        <div class="content">
-          <blockquote>
-            ${text}
-          </blockquote>
-        </div>
-      `
-
-    node.type = "html"
-    node.children = undefined
-    node.value = html
+    const div = {
+      type: "section",
+      data: {
+        hName: "div",
+        hProperties: { class: "content" },
+      },
+      children: [node],
+    }
+    const parent = ancestors[ancestors.length - 1]
+    const startIndex = parent.children.indexOf(node)
+    parent.children.splice(startIndex, 1, div)
   })
 
   visit(markdownAST, "paragraph", (node, ancestors) => {
