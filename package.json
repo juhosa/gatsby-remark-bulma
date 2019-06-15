@@ -10,5 +10,12 @@
     "mdast-util-to-string": "^1.0.6",
     "unist-util-visit": "^1.4.1",
     "unist-util-visit-parents": "^2.1.2"
-  }
+  },
+  "keywords": [
+    "gatsby",
+    "gatsby-plugin",
+    "bulma",
+    "markdown",
+    "gatsby-transformer-remark"
+  ]
 }
