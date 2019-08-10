@@ -13,7 +13,7 @@ npm install --save gatsby-remark-bulma
 ```
 
 ## How to use
-```javacript
+```javascript
 // In your gatsby-config.js
 plugins: [
   {
