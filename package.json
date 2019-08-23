@@ -1,6 +1,6 @@
 {
   "name": "gatsby-remark-bulma",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A gatsby-transformer-remark plugin for decorating html elements with Bulma.io classes.",
   "main": "index.js",
   "repository": "https://github.com/juhosa/gatsby-remark-bulma",
